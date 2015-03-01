@@ -1,0 +1,21 @@
+{
+  "name": "twitter-bot",
+  "version": "0.0.1",
+  "description": "A twitter bot based on news feeds and retweets",
+  "main": "index.js",
+  "dependencies": {
+    "feedsub": "*",
+    "request": "^2.34.0",
+    "twit": "^1.1.15",
+    "ebay-api": "^0.1.1",
+    "underscore": "^1.6.0",
+    "amazon-product-api": "^0.1.2",
+    "bitly": "^1.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jaime Ramírez Castillo",
+  "license": "MIT"
+}
