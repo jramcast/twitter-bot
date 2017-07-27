@@ -16,6 +16,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jaime Ramírez Castillo",
+  "author": "Jaime Ramírez Castillo <jaime.ram@gmail.com>",
   "license": "MIT"
 }
