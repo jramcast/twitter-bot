@@ -9,9 +9,9 @@ path    = require('path');
 
 var
 settings = require('./settings'),
-Feeds    = require('./lib/feeds'),
-Ebay     = require('./lib/ebay'),
-Amazon   = require('./lib/amazon');
+Feeds    = require('./lib/feeds');
+// Ebay     = require('./lib/ebay'),
+// Amazon   = require('./lib/amazon');
 
 
 
@@ -31,6 +31,7 @@ var MAX_RETWEETS_PER_WINDOW = settings.frequency.MAX_RETWEETS_PER_WINDOW;
 var MAX_TWEETS_PER_WINDOW = settings.frequency.MAX_TWEETS_PER_WINDOW;
 var MIN_FOLLOWERS_WIHOUT_FAVORITE = settings.frequency.MIN_FOLLOWERS_WIHOUT_FAVORITE;
 var MIN_FOLLOWERS_WITH_FAVOURITE = settings.frequency.MIN_FOLLOWERS_WITH_FAVOURITE;
+var MIN_FAVOURITES = settings.frequency.MIN_FAVOURITES;
 
 
 var minutesBetweenPosts = WINDOW / MAX_RETWEETS_PER_WINDOW;
@@ -51,14 +52,15 @@ stream.on('tweet', function (tweet) {
   console.log('User id: ' + tweet.user.id);
   console.log('Text: ' + tweet.text);
   console.log('Followers: ' + tweet.user.followers_count);
-  console.log('Favourites: ' + tweet.favorite_count);
+  const favouriteCount = tweet.favorite_count || (tweet.retweeted_status || {}).favorite_count || 0;
+  console.log('Favourites: ' + favouriteCount);
 
   var elapsedTime = new Date() - lastRetweet;
   var elapsedMinutes = (elapsedTime / 1000 / 60);
 
   console.log('Minutes since last retweet:' + elapsedMinutes);
 
-  var isRelevantWithFavorite = (tweet.favorite_count > 1 && tweet.user.followers_count >= MIN_FOLLOWERS_WITH_FAVOURITE );
+  var isRelevantWithFavorite = (favouriteCount >= MIN_FAVOURITES && tweet.user.followers_count >= MIN_FOLLOWERS_WITH_FAVOURITE );
   var isRelevantWithoutFavorite =  tweet.user.followers_count >= MIN_FOLLOWERS_WIHOUT_FAVORITE;
   var isRelevant = (isRelevantWithFavorite || isRelevantWithoutFavorite) && !_.contains(settings.ignoreTweetsFrom, tweet.user.screen_name);
 
@@ -120,14 +122,14 @@ Feeds.init(function(item) {
 
 // ------ Init Amazon and ebay (if enabled) -------
 
-if (settings.amazon.enabled) {
-  tweetAmazonProduct();
-  setInterval(tweetAmazonProduct, settings.amazon.interval);
-}
+// if (settings.amazon.enabled) {
+//   tweetAmazonProduct();
+//   setInterval(tweetAmazonProduct, settings.amazon.interval);
+// }
 
-if (settings.ebay.enabled) {
-  setInterval(tweetEbayProduct, settings.ebay.interval);
-}
+// if (settings.ebay.enabled) {
+//   setInterval(tweetEbayProduct, settings.ebay.interval);
+// }
 
 
 // ------ Helper functions -------

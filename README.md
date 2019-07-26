@@ -3,7 +3,7 @@ A twitter bot. Tweets based on rss feeds about certain topics. Retweets and foll
 
 ## Settings
 
-Set your twitter keys in settings.js
+Set your twitter keys in `settings.js`
 
 ## Run
 

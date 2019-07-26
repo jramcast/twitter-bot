@@ -22,7 +22,8 @@ module.exports = {
     // Decides when to retweet based on the popularity of the user (followers count)
     // and the tweet's popularity (has favourites)
     MIN_FOLLOWERS_WIHOUT_FAVORITE : 1000,
-    MIN_FOLLOWERS_WITH_FAVOURITE : 150
+    MIN_FOLLOWERS_WITH_FAVOURITE : 150,
+    MIN_FAVOURITES: 5
   },
 
   //Twitter Streaming API (https://dev.twitter.com/streaming/overview/request-parameters)
