@@ -96,14 +96,15 @@ Feeds.init(function(item) {
 
     console.log('********* Got new feed item! *********');
     console.log(item.title);
-
-    console.log(item.link);
     console.log('Url: ' + link);
     console.log('Image: ' + image);
 
     var elapsedTime = new Date() - lastTweet;
     var elapsedMinutes = (elapsedTime / 1000 / 60);
     var correctLink = (typeof link === 'string' && link.indexOf('http') === 0);
+
+    console.log('Link: ', link);
+    console.log('Minutes since last publication: ', elapsedMinutes);
 
     if ( elapsedMinutes > minutesBetweenFeedItems && item.title && correctLink) {
 
@@ -150,8 +151,9 @@ function getLink(item) {
   if (link) {
     if ( typeof link === 'string' ) {
       return link;
-    }
-    else {
+    } else if ( link.href) {
+      return link.href;
+    } else {
       for(var i in link) {
         var typeLink = link[i];
         if ( typeof typeLink === 'object' && typeLink.rel == 'alternate') {
